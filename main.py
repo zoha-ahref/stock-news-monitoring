@@ -1,5 +1,6 @@
 import requests
 from twilio.rest import Client
+import os
 
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -9,6 +10,8 @@ NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 
 account_sid = "AC358bfdd0f5bbe9ba3e487710fa863dd1"
 auth_token = "949fa0d95b574619099330aa40e87b33"
+
+CONTACT = os.environ.get("RECEIVER")
 
 parameters = {
     "function": "TIME_SERIES_DAILY",
@@ -82,7 +85,7 @@ for article in formatted_articles:
     message = client.messages.create(
             body=article,
             from_='+19735574099',
-            to='+17176085036'
+            to=CONTACT
         )
     print(message.status)
 
